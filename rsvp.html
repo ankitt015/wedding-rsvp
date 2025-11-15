@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Form - Ankit & Aashna's Wedding</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="rsvp-container">
+            <div class="rsvp-header">
+                <h1>Welcome, <span id="guestNameDisplay"></span>! 🎊</h1>
+                <p>Please confirm your attendance and provide your details below</p>
+            </div>
+
+            <form id="rsvpForm" class="rsvp-form">
+                <!-- Guest Name (Hidden, pre-filled) -->
+                <input type="hidden" id="guestName" name="guestName">
+
+                <!-- Events Section - Dynamically Generated -->
+                <div class="form-section">
+                    <h2>Your Invited Events</h2>
+                    <div id="eventsSection"></div>
+                </div>
+
+                <!-- Personal Details Section -->
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+                    <p class="section-note">Required for hotel check-in and venue entry</p>
+
+                    <div class="form-group">
+                        <label for="legalName">Full Name (as per Government ID) *</label>
+                        <input 
+                            type="text" 
+                            id="legalName" 
+                            name="legalName" 
+                            required
+                            placeholder="Enter your full legal name"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="aadhaarNumber">Aadhaar Card Number *</label>
+                            <input 
+                                type="text" 
+                                id="aadhaarNumber" 
+                                name="aadhaarNumber" 
+                                required
+                                pattern="[0-9]{12}"
+                                placeholder="12-digit number"
+                                maxlength="12"
+                            >
+                            <small>12 digits only</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="panNumber">PAN Card Number *</label>
+                            <input 
+                                type="text" 
+                                id="panNumber" 
+                                name="panNumber" 
+                                required
+                                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                                placeholder="ABCDE1234F"
+                                maxlength="10"
+                                style="text-transform: uppercase;"
+                            >
+                            <small>Format: ABCDE1234F</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="aadhaarUpload">Upload Aadhaar Card *</label>
+                            <input 
+                                type="file" 
+                                id="aadhaarUpload" 
+                                name="aadhaarUpload" 
+                                required
+                                accept="image/*,.pdf"
+                                class="file-input"
+                            >
+                            <small>Image or PDF, max 10MB</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="panUpload">Upload PAN Card *</label>
+                            <input 
+                                type="file" 
+                                id="panUpload" 
+                                name="panUpload" 
+                                required
+                                accept="image/*,.pdf"
+                                class="file-input"
+                            >
+                            <small>Image or PDF, max 10MB</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <h2>Additional Information</h2>
+
+                    <div class="form-group">
+                        <label for="dietary">Dietary Restrictions (Optional)</label>
+                        <textarea 
+                            id="dietary" 
+                            name="dietary" 
+                            rows="3"
+                            placeholder="Let us know about any dietary preferences or allergies"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">WhatsApp Contact Number *</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            required
+                            placeholder="+91 98765 43210"
+                        >
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-large">
+                        Submit RSVP
+                    </button>
+                </div>
+
+                <div id="formError" class="error-message" style="display: none;"></div>
+                <div id="formLoading" class="loading-message" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Submitting your RSVP...</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="rsvp-script.js"></script>
+</body>
+</html>
