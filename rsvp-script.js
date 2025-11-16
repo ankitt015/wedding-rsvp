@@ -1,215 +1,109 @@
-// ===========================
-// RSVP FORM SCRIPT
-// ===========================
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Get guest data from session storage
-    const guestData = getGuestData();
+// Load guest data on page load
+window.addEventListener('DOMContentLoaded', function() {
+    const guestData = sessionStorage.getItem('currentGuest');
     
     if (!guestData) {
-        // If no guest data, redirect to lookup page
         window.location.href = 'lookup.html';
         return;
     }
     
-    // Display guest name
-    document.getElementById('guestNameDisplay').textContent = guestData.name;
-    document.getElementById('guestName').value = guestData.name;
+    const guest = JSON.parse(guestData);
     
-    // Generate event questions based on which events they're invited to
-    generateEventQuestions(guestData.events);
+    // Set greeting
+    document.getElementById('guestGreeting').textContent = `Welcome, ${guest.fullName}! ✨`;
     
-    // Handle form submission
-    const rsvpForm = document.getElementById('rsvpForm');
-    rsvpForm.addEventListener('submit', handleFormSubmit);
+    // Pre-fill email if available
+    if (guest.email) {
+        document.getElementById('email').value = guest.email;
+    }
     
-    // Add input validation
-    setupValidation();
+    // Display only invited events
+    const eventsList = document.getElementById('eventsList');
+    guest.events.forEach(eventKey => {
+        const event = EVENTS[eventKey];
+        const eventDiv = document.createElement('div');
+        eventDiv.className = 'event-checkbox';
+        eventDiv.innerHTML = `
+            <label>
+                <input type="checkbox" name="event" value="${eventKey}">
+                <div>
+                    <strong>${event.name}</strong><br>
+                    <small>${event.date} at ${event.time}</small><br>
+                    <small>${event.venue}</small>
+                </div>
+            </label>
+        `;
+        eventsList.appendChild(eventDiv);
+    });
+    
+    // Handle plus one toggle
+    document.getElementById('plusOne').addEventListener('change', function() {
+        const plusOneDetails = document.getElementById('plusOneDetails');
+        plusOneDetails.style.display = this.value === 'yes' ? 'block' : 'none';
+    });
 });
 
-function generateEventQuestions(events) {
-    const eventsSection = document.getElementById('eventsSection');
-    let html = '';
-    
-    if (events.engagement) {
-        html += createEventQuestion(CONFIG.EVENTS.ENGAGEMENT);
-    }
-    
-    if (events.night1) {
-        html += createEventQuestion(CONFIG.EVENTS.NIGHT1);
-    }
-    
-    if (events.day2) {
-        html += createEventQuestion(CONFIG.EVENTS.DAY2);
-    }
-    
-    eventsSection.innerHTML = html;
-}
-
-function createEventQuestion(event) {
-    return `
-        <div class="form-group">
-            <label style="font-size: 1.2rem; margin-bottom: 15px;">
-                ${event.icon} ${event.name}
-            </label>
-            <div class="event-details" style="margin-bottom: 15px; margin-left: 0;">
-                <p><strong>Date:</strong> ${event.date}</p>
-                <p><strong>Time:</strong> ${event.time}</p>
-                <p><strong>Venue:</strong> ${event.venue}</p>
-            </div>
-            
-            <div class="event-option">
-                <label>
-                    <input type="radio" name="${event.id}" value="yes" required>
-                    ✅ Yes, I'll be there!
-                </label>
-            </div>
-            
-            <div class="event-option">
-                <label>
-                    <input type="radio" name="${event.id}" value="no" required>
-                    ❌ No, I can't make it
-                </label>
-            </div>
-        </div>
-    `;
-}
-
-function setupValidation() {
-    // Aadhaar validation
-    const aadhaarInput = document.getElementById('aadhaarNumber');
-    aadhaarInput.addEventListener('input', function(e) {
-        this.value = this.value.replace(/\D/g, '').substring(0, 12);
-    });
-    
-    // PAN validation
-    const panInput = document.getElementById('panNumber');
-    panInput.addEventListener('input', function(e) {
-        this.value = this.value.toUpperCase().substring(0, 10);
-    });
-    
-    // File size validation
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach(input => {
-        input.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && file.size > 10 * 1024 * 1024) { // 10MB
-                alert('File size must be less than 10MB');
-                this.value = '';
-            }
-        });
-    });
-}
-
-async function handleFormSubmit(e) {
+// Handle form submission
+document.getElementById('rsvpForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const formError = document.getElementById('formError');
-    const formLoading = document.getElementById('formLoading');
-    const submitButton = e.target.querySelector('button[type="submit"]');
+    const guestData = JSON.parse(sessionStorage.getItem('currentGuest'));
     
-    // Hide error, show loading
-    formError.style.display = 'none';
-    formLoading.style.display = 'block';
-    submitButton.disabled = true;
+    // Get selected events
+    const selectedEvents = Array.from(document.querySelectorAll('input[name="event"]:checked'))
+        .map(cb => cb.value);
     
-    try {
-        // Collect form data
-        const formData = collectFormData();
-        
-        // Submit to Google Sheets
-        const success = await submitRSVP(formData);
-        
-        if (success) {
-            // Store RSVP data for thank you page
-            storeRSVPData(formData);
-            
-            // Redirect to thank you page
-            window.location.href = 'thankyou.html';
-        } else {
-            throw new Error('Submission failed');
-        }
-    } catch (error) {
-        console.error('Form submission error:', error);
-        formLoading.style.display = 'none';
-        formError.textContent = 'An error occurred. Please try again or contact us for assistance.';
-        formError.style.display = 'block';
-        submitButton.disabled = false;
+    if (selectedEvents.length === 0) {
+        alert('Please select at least one event to attend!');
+        return;
     }
-}
-
-function collectFormData() {
-    const guestData = getGuestData();
+    
+    // Show loading state
+    const submitBtn = document.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+    
+    // Collect form data
     const formData = {
-        timestamp: new Date().toISOString(),
-        guestName: document.getElementById('guestName').value,
-        legalName: document.getElementById('legalName').value,
-        aadhaarNumber: document.getElementById('aadhaarNumber').value,
-        panNumber: document.getElementById('panNumber').value,
-        dietary: document.getElementById('dietary').value,
+        guestId: guestData.id,
+        guestName: guestData.fullName,
+        events: selectedEvents,
+        fullName: document.getElementById('fullName').value,
+        govIdType: document.getElementById('govIdType').value,
+        govIdNumber: document.getElementById('govIdNumber').value,
+        email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        events: {}
+        dietary: document.getElementById('dietary').value,
+        plusOne: document.getElementById('plusOne').value,
+        plusOneName: document.getElementById('plusOneName').value,
+        specialRequests: document.getElementById('specialRequests').value,
+        timestamp: new Date().toISOString()
     };
     
-    // Collect event responses
-    if (guestData.events.engagement) {
-        const engagementResponse = document.querySelector('input[name="engagement"]:checked');
-        formData.events.engagement = engagementResponse ? engagementResponse.value : '';
-    }
+    // Your Google Apps Script Web App URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYh2GLZf7VSQRJlovvbRY4J21FWmG-ygw6dvkVJNRmWYun9p0zRoxClsp96kTYfzs/exec';
     
-    if (guestData.events.night1) {
-        const night1Response = document.querySelector('input[name="night1"]:checked');
-        formData.events.night1 = night1Response ? night1Response.value : '';
-    }
-    
-    if (guestData.events.day2) {
-        const day2Response = document.querySelector('input[name="day2"]:checked');
-        formData.events.day2 = day2Response ? day2Response.value : '';
-    }
-    
-    // Note: File uploads would need to be handled separately via Google Drive API
-    // For now, we'll note that files were uploaded
-    formData.aadhaarUploaded = document.getElementById('aadhaarUpload').files.length > 0;
-    formData.panUploaded = document.getElementById('panUpload').files.length > 0;
-    
-    return formData;
-}
-
-async function submitRSVP(formData) {
-    // For prototype/demo: Simulate successful submission
-    console.log('RSVP Data to submit:', formData);
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    return true;
-    
-    /*
-    // PRODUCTION CODE (uncomment when Google Apps Script is ready):
-    
-    try {
-        const response = await fetch(CONFIG.SHEETS_WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                action: 'submitRSVP',
-                data: formData
-            })
-        });
+    // Send to Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(() => {
+        // Store for thank you page
+        sessionStorage.setItem('rsvpData', JSON.stringify(formData));
         
-        // Note: With 'no-cors', we can't read the response
-        // So we assume success if no error is thrown
-        return true;
-    } catch (error) {
-        console.error('Error submitting RSVP:', error);
-        return false;
-    }
-    */
-}
-
-function storeRSVPData(formData) {
-    sessionStorage.setItem('rsvpData', JSON.stringify(formData));
-}
+        // Redirect to thank you page
+        window.location.href = 'thankyou.html';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error submitting your RSVP. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
+});
