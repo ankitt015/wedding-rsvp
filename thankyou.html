@@ -5,47 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You - RSVP Confirmed</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="stars-decoration">
+        <span class="star star-1">✨</span>
+        <span class="star star-2">⭐</span>
+        <span class="star star-3">✨</span>
+        <span class="star star-4">⭐</span>
+    </div>
+    
     <div class="container">
-        <div class="thankyou-container">
-            <div class="success-icon">✓</div>
-            
-            <h1>Thank You!</h1>
-            <p class="success-message">Your RSVP has been successfully submitted</p>
-
-            <div class="confirmation-box">
-                <h2>What's Next?</h2>
-                <ul class="next-steps">
-                    <li>📧 You'll receive a confirmation email shortly</li>
-                    <li>📱 We'll send you venue details via WhatsApp</li>
-                    <li>🏨 Hotel accommodation details will be shared soon</li>
-                    <li>📅 Add the event to your calendar</li>
-                </ul>
-            </div>
-
-            <div class="rsvp-summary" id="rsvpSummary">
-                <h3>Your RSVP Summary</h3>
-                <div id="summaryContent"></div>
-            </div>
-
-            <div class="action-buttons">
+        <div class="header">
+            <h1 class="script-heading">Thank You!</h1>
+            <p class="subtitle">Your RSVP has been confirmed</p>
+        </div>
+        
+        <div class="content">
+            <div class="thankyou-card">
+                <div class="success-icon">✓</div>
+                
+                <h2 id="confirmationMessage">We can't wait to celebrate with you!</h2>
+                
+                <div class="divider">✦</div>
+                
+                <div id="attendanceConfirmation" class="confirmation-details"></div>
+                
+                <div class="next-steps">
+                    <h3>What's Next?</h3>
+                    <ul>
+                        <li>📧 You'll receive a confirmation email shortly</li>
+                        <li>🏨 Hotel booking details will be sent 2 weeks before the event</li>
+                        <li>📱 We'll send event reminders and updates</li>
+                        <li>💌 Look out for the detailed itinerary</li>
+                    </ul>
+                </div>
+                
+                <div class="divider">✦</div>
+                
+                <div class="contact-info">
+                    <p><strong>Questions?</strong></p>
+                    <p>Contact us at: hello@ankitaashna.com</p>
+                    <p>Phone: +91 98765 43210</p>
+                </div>
+                
                 <a href="index.html" class="btn-secondary">Back to Home</a>
-                <button onclick="window.print()" class="btn-outline">Print Confirmation</button>
-            </div>
-
-            <div class="contact-info">
-                <p>Questions or need to make changes?</p>
-                <p>Contact us: <strong>[Your Contact Info]</strong></p>
-            </div>
-
-            <div class="celebration">
-                <p class="celebration-text">🎉 We can't wait to celebrate with you! 🎉</p>
             </div>
         </div>
     </div>
-
+    
     <script src="thankyou-script.js"></script>
 </body>
 </html>
