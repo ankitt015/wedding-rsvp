@@ -1,439 +1,299 @@
-/* ===========================
-   WEDDING RSVP PORTAL STYLES
-   =========================== */
-
-/* Reset & Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    /* ===== MAIN PASTEL COLOR PALETTE ===== */
-    /* You can easily change these colors! */
-    --primary-color: #FFB6C1; /* Pastel Pink */
-    --secondary-color: #E6E6FA; /* Pastel Lavender */
-    --accent-color: #FFDAB9; /* Pastel Peach */
-    --text-dark: #2C2C2C;
-    --text-light: #666666;
-    --background: #FFF5F5;
-    --white: #FFFFFF;
-    --error: #DC3545;
-    --success: #98D8C8; /* Pastel Mint */
-    
-    /* ===== EVENT-SPECIFIC COLORS ===== */
-    /* Engagement Event - Soft Pink Theme */
-    --engagement-primary: #FFB6C1; /* Pastel Pink */
-    --engagement-secondary: #FFC0CB; /* Light Pink */
-    
-    /* Mehendi & Sangeet - Warm Peach Theme */
-    --mehendi-primary: #FFDAB9; /* Pastel Peach */
-    --mehendi-secondary: #FFE4B5; /* Moccasin */
-    
-    /* Wedding Ceremony - Elegant Lavender Theme */
-    --wedding-primary: #E6E6FA; /* Pastel Lavender */
-    --wedding-secondary: #DDA0DD; /* Plum */
-    
-    /* Fonts */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Montserrat', sans-serif;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f5f3f0;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    color: #2c2c2c;
 }
 
-body {
-    font-family: var(--font-body);
-    line-height: 1.6;
-    color: var(--text-dark);
-    background: var(--background);
+/* Floating Stars Decoration */
+.stars-decoration {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.6;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.star-1 { top: 10%; left: 15%; animation-delay: 0s; }
+.star-2 { top: 20%; right: 20%; animation-delay: 1s; }
+.star-3 { bottom: 30%; left: 10%; animation-delay: 2s; }
+.star-4 { bottom: 15%; right: 15%; animation-delay: 1.5s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.2); }
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
-}
-
-/* ===========================
-   HERO SECTION
-   =========================== */
-.hero {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--white);
-    text-align: center;
-    padding: 60px 20px;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: float 20s linear infinite;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-50px, -50px); }
-}
-
-.hero-content {
     position: relative;
     z-index: 1;
 }
 
-.couple-names {
-    margin-bottom: 20px;
+.header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.groom-name, .bride-name {
-    font-family: var(--font-heading);
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin: 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.ampersand {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    font-style: italic;
-    display: block;
-    margin: 10px 0;
-}
-
-.tagline {
-    font-size: 1.5rem;
+.header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3em;
     font-weight: 300;
-    margin: 20px 0;
+    color: #2c2c2c;
+    margin-bottom: 10px;
     letter-spacing: 2px;
 }
 
-.date-location {
-    margin-top: 30px;
-}
-
-.wedding-date, .wedding-location {
-    font-size: 1.2rem;
-    margin: 5px 0;
-}
-
-/* ===========================
-   WELCOME SECTION
-   =========================== */
-.welcome {
-    text-align: center;
-    padding: 60px 20px;
-    background: var(--white);
-    border-radius: 15px;
-    margin-bottom: 40px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.welcome h2 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--primary-color);
+.script-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.5em;
+    color: #2c2c2c;
     margin-bottom: 20px;
 }
 
-.welcome p {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    max-width: 700px;
-    margin: 0 auto;
+.subtitle {
+    font-size: 1.1em;
+    color: #666;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
-/* ===========================
-   EVENTS SECTION
-   =========================== */
-.events-preview {
-    padding: 40px 0;
+.content {
+    background: white;
+    border-radius: 8px;
+    padding: 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-.events-preview h2 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
+/* Divider */
+.divider {
     text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 40px;
+    color: #d4af37;
+    font-size: 1.5em;
+    margin: 30px 0;
 }
 
-.events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.event-card {
-    background: var(--white);
-    padding: 40px 30px;
-    border-radius: 15px;
+/* Invitation Card */
+.invitation-card {
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.event-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.event-card h3 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--secondary-color);
+.invitation-card h2 {
+    color: #2c2c2c;
     margin-bottom: 15px;
 }
 
-.event-date, .event-time {
-    color: var(--text-light);
-    font-size: 1rem;
-}
-
-/* ===========================
-   RSVP SECTION
-   =========================== */
-.rsvp-section {
-    padding: 60px 0;
-    text-align: center;
-}
-
-.rsvp-box {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    color: var(--white);
-    padding: 60px 40px;
-    border-radius: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.rsvp-box h2 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
+.elegant-text {
+    color: #666;
+    font-size: 1.1em;
     margin-bottom: 20px;
+    font-weight: 300;
 }
 
-.rsvp-box p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
+.event-details {
+    margin: 40px 0;
 }
 
-.deadline {
-    margin-top: 30px;
-    font-size: 0.95rem;
-    opacity: 0.9;
+.event {
+    background: #fafaf8;
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 4px;
+    border: 1px solid #e8e6e3;
 }
 
-/* ===========================
-   BUTTONS
-   =========================== */
+.event h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #2c2c2c;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.event-date {
+    color: #d4af37;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.event-time {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.event-venue {
+    color: #888;
+    font-size: 0.95em;
+}
+
+/* Buttons */
 .btn-primary {
     display: inline-block;
-    padding: 15px 40px;
-    background: var(--white);
-    color: var(--primary-color);
+    background: transparent;
+    color: #2c2c2c;
+    padding: 15px 50px;
     text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    border: 2px solid var(--white);
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 500;
+    border: 2px solid #2c2c2c;
     cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .btn-primary:hover {
-    background: transparent;
-    color: var(--white);
-    transform: scale(1.05);
-}
-
-.btn-large {
-    padding: 18px 60px;
-    font-size: 1.2rem;
+    background: #2c2c2c;
+    color: white;
 }
 
 .btn-secondary {
     display: inline-block;
-    padding: 12px 30px;
-    background: var(--primary-color);
-    color: var(--white);
+    background: transparent;
+    color: #666;
+    padding: 12px 35px;
     text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid var(--primary-color);
-    margin: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-weight: 400;
+    transition: all 0.3s;
+    margin-top: 20px;
+    letter-spacing: 1px;
 }
 
 .btn-secondary:hover {
-    background: var(--secondary-color);
-    border-color: var(--secondary-color);
+    background: #f5f3f0;
+    border-color: #2c2c2c;
+    color: #2c2c2c;
 }
 
-.btn-outline {
-    padding: 12px 30px;
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 10px;
+.note {
+    margin-top: 25px;
+    color: #888;
+    font-style: italic;
+    font-size: 0.95em;
 }
 
-.btn-outline:hover {
-    background: var(--primary-color);
-    color: var(--white);
+/* Lookup Card */
+.lookup-card {
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-/* ===========================
-   LOOKUP PAGE
-   =========================== */
-.lookup-container {
-    max-width: 600px;
-    margin: 60px auto;
-}
-
-.back-link {
-    margin-bottom: 30px;
-}
-
-.back-link a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.back-link a:hover {
-    color: var(--secondary-color);
-}
-
-.lookup-box {
-    background: var(--white);
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.lookup-box h1 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.subtitle {
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 40px;
-}
-
-.lookup-form {
-    margin-top: 30px;
-}
-
-/* ===========================
-   FORM STYLES
-   =========================== */
 .form-group {
     margin-bottom: 25px;
+    text-align: left;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: var(--text-dark);
-    font-weight: 600;
+    color: #2c2c2c;
+    font-weight: 500;
+    font-size: 0.95em;
 }
 
-.form-group input[type="text"],
-.form-group input[type="tel"],
+.form-group input,
+.form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #E0E0E0;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: var(--font-body);
-    transition: border-color 0.3s ease;
+    padding: 14px;
+    border: 1px solid #d4d0cc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s;
+    background: white;
 }
 
 .form-group input:focus,
+.form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: #d4af37;
 }
 
-.form-group small {
-    display: block;
-    margin-top: 5px;
-    color: var(--text-light);
-    font-size: 0.85rem;
+.helper-text {
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 6px;
+    font-style: italic;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+/* Error Message */
+.error-message {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border-left: 4px solid #c53030;
 }
 
-.file-input {
+/* Suggestions */
+.suggestions {
+    background: #fafaf8;
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border-left: 4px solid #d4af37;
+}
+
+.suggestions h4 {
+    color: #2c2c2c;
+    margin-bottom: 12px;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.suggestions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.suggestions li {
     padding: 10px;
-    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+    color: #2c2c2c;
 }
 
-/* ===========================
-   RSVP FORM PAGE
-   =========================== */
-.rsvp-container {
-    max-width: 800px;
-    margin: 40px auto;
+.suggestions li:hover {
+    background: #f0ede8;
 }
 
-.rsvp-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.rsvp-header h1 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
+/* RSVP Form */
 .rsvp-form {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .form-section {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #e8e6e3;
 }
 
 .form-section:last-of-type {
@@ -441,357 +301,178 @@ body {
 }
 
 .form-section h2 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--secondary-color);
-    margin-bottom: 10px;
-}
-
-.section-note {
-    color: var(--text-light);
-    font-size: 0.95rem;
+    font-family: 'Cormorant Garamond', serif;
+    color: #2c2c2c;
     margin-bottom: 25px;
-}
-
-.form-actions {
-    text-align: center;
-    margin-top: 40px;
-}
-
-/* Event Checkboxes */
-.event-option {
-    background: #F8F9FA;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.event-option:hover {
-    border-color: var(--primary-color);
-}
-
-.event-option label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+    font-size: 1.8em;
     font-weight: 600;
 }
 
-.event-option input[type="radio"] {
-    margin-right: 15px;
-    width: 20px;
-    height: 20px;
+/* Events List */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.event-checkbox {
+    background: #fafaf8;
+    padding: 20px;
+    border-radius: 4px;
+    border: 2px solid #e8e6e3;
+    transition: all 0.3s;
     cursor: pointer;
 }
 
-.event-details {
-    margin-left: 35px;
-    margin-top: 10px;
-    color: var(--text-light);
-    font-size: 0.95rem;
+.event-checkbox:hover {
+    border-color: #d4af37;
+    background: white;
 }
 
-/* ===========================
-   THANK YOU PAGE
-   =========================== */
-.thankyou-container {
-    max-width: 700px;
-    margin: 60px auto;
+.event-checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 12px;
+    transform: scale(1.2);
+    cursor: pointer;
+    accent-color: #d4af37;
+}
+
+.event-checkbox label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+}
+
+/* Thank You Page */
+.thankyou-card {
     text-align: center;
 }
 
 .success-icon {
-    width: 100px;
-    height: 100px;
-    background: var(--success);
-    color: var(--white);
+    width: 80px;
+    height: 80px;
+    background: #d4af37;
+    color: white;
+    font-size: 2.5em;
+    line-height: 80px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
     margin: 0 auto 30px;
-    animation: scaleIn 0.5s ease;
 }
 
-@keyframes scaleIn {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.thankyou-card h2 {
+    color: #2c2c2c;
+    margin-bottom: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.8em;
 }
 
-.thankyou-container h1 {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    color: var(--primary-color);
+.confirmation-details {
+    background: #fafaf8;
+    padding: 25px;
+    border-radius: 4px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid #e8e6e3;
+}
+
+.confirmation-details h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #2c2c2c;
     margin-bottom: 15px;
 }
 
-.success-message {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: 40px;
-}
-
-.confirmation-box {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    text-align: left;
-}
-
-.confirmation-box h2 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-    text-align: center;
+.confirmation-details p {
+    color: #666;
+    line-height: 1.8;
 }
 
 .next-steps {
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid #e8e6e3;
+}
+
+.next-steps h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #2c2c2c;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.next-steps ul {
     list-style: none;
+    padding: 0;
 }
 
 .next-steps li {
-    padding: 15px 0;
-    border-bottom: 1px solid #E0E0E0;
-    font-size: 1.05rem;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0ede8;
+    color: #666;
 }
 
 .next-steps li:last-child {
     border-bottom: none;
 }
 
-.rsvp-summary {
-    background: #F8F9FA;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    text-align: left;
-}
-
-.rsvp-summary h3 {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.action-buttons {
-    margin: 40px 0;
-}
-
 .contact-info {
     margin: 30px 0;
-    padding: 20px;
-    background: #F8F9FA;
-    border-radius: 10px;
+    padding: 25px;
+    background: #fffef8;
+    border-radius: 4px;
+    border: 1px solid #f0ede8;
 }
 
-.celebration {
+.contact-info p {
+    margin: 8px 0;
+    color: #666;
+}
+
+/* Back Link */
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #2c2c2c;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #888;
     margin-top: 40px;
-    padding-top: 40px;
-    border-top: 2px solid #E0E0E0;
+    font-size: 0.95em;
 }
 
-.celebration-text {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-}
-
-/* ===========================
-   MESSAGES & ALERTS
-   =========================== */
-.error-message {
-    background: #FFE5E5;
-    color: var(--error);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    border-left: 4px solid var(--error);
-}
-
-.loading-message {
-    text-align: center;
-    padding: 40px;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid #E0E0E0;
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.help-text {
-    margin-top: 30px;
-    padding: 20px;
-    background: #F8F9FA;
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* ===========================
-   FOOTER
-   =========================== */
-footer {
-    text-align: center;
-    padding: 60px 20px 40px;
-    color: var(--text-light);
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-.contact {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.credit {
-    font-size: 0.9rem;
-    margin-top: 20px;
-}
-
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
-   
-/* ===========================
-   EVENT-SPECIFIC COLOR THEMES
-   =========================== */
-   
-/* Apply engagement colors to first event card */
-.event-card:nth-child(1) {
-    border-top: 4px solid var(--engagement-primary);
-}
-
-.event-card:nth-child(1):hover {
-    border-top-color: var(--engagement-secondary);
-}
-
-/* Apply mehendi colors to second event card */
-.event-card:nth-child(2) {
-    border-top: 4px solid var(--mehendi-primary);
-}
-
-.event-card:nth-child(2):hover {
-    border-top-color: var(--mehendi-secondary);
-}
-
-/* Apply wedding colors to third event card */
-.event-card:nth-child(3) {
-    border-top: 4px solid var(--wedding-primary);
-}
-
-.event-card:nth-child(3):hover {
-    border-top-color: var(--wedding-secondary);
-}
-
-/* Hero gradient with pastel colors */
-.hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
-}
-
-/* RSVP box with pastel gradient */
-.rsvp-box {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-}
-
-/* ===========================
-   COLOR CUSTOMIZATION GUIDE
-   =========================== */
-/*
-WANT TO CHANGE COLORS? Edit the values at the top of this file!
-
-Popular Pastel Combinations:
-
-1. SOFT PINK & LAVENDER (Current):
-   --primary-color: #FFB6C1;
-   --secondary-color: #E6E6FA;
-   --accent-color: #FFDAB9;
-
-2. MINT & CORAL:
-   --primary-color: #98D8C8;
-   --secondary-color: #FF6B6B;
-   --accent-color: #FFE66D;
-
-3. BABY BLUE & PEACH:
-   --primary-color: #AED9E0;
-   --secondary-color: #FFDAB9;
-   --accent-color: #FFA8A8;
-
-4. LILAC & ROSE:
-   --primary-color: #C8A2C8;
-   --secondary-color: #FFB7C5;
-   --accent-color: #E0BBE4;
-
-5. SAGE & BLUSH:
-   --primary-color: #9DC183;
-   --secondary-color: #FFB8C1;
-   --accent-color: #F4E4C1;
-
-Just replace the hex codes (e.g., #FFB6C1) with your chosen colors!
-*/
-
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
+/* Responsive */
 @media (max-width: 768px) {
-    .groom-name, .bride-name {
-        font-size: 2.5rem;
-    }
-    
-    .ampersand {
-        font-size: 2rem;
-    }
-    
-    .events-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .rsvp-form {
+    .content {
         padding: 30px 20px;
     }
     
-    .thankyou-container h1 {
-        font-size: 2rem;
+    .header h1 {
+        font-size: 2.2em;
     }
-}
-
-@media (max-width: 480px) {
-    .container {
+    
+    .script-heading {
+        font-size: 2em;
+    }
+    
+    body {
         padding: 10px;
     }
     
-    .hero {
-        padding: 40px 15px;
-    }
-    
-    .groom-name, .bride-name {
-        font-size: 2rem;
-    }
-    
-    .btn-primary, .btn-secondary {
-        width: 100%;
-        display: block;
-        margin: 10px 0;
+    .star {
+        font-size: 18px;
     }
 }
