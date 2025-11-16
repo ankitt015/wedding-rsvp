@@ -1,10 +1,33 @@
+// Wait for page to fully load before running anything
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, lookup-script.js ready');
+    console.log('GUESTS_DATABASE available:', typeof GUESTS_DATABASE !== 'undefined');
+    
+    // Add Enter key listener
+    const guestNameInput = document.getElementById('guestName');
+    if (guestNameInput) {
+        guestNameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                lookupGuest();
+            }
+        });
+        console.log('Enter key listener added');
+    }
+});
+
 function lookupGuest() {
     console.log('lookupGuest function called');
     
-    const guestName = document.getElementById('guestName').value.trim().toLowerCase();
+    const guestNameInput = document.getElementById('guestName');
     const errorDiv = document.getElementById('errorMessage');
     const suggestionsDiv = document.getElementById('suggestions');
     
+    if (!guestNameInput) {
+        console.error('Guest name input field not found!');
+        return;
+    }
+    
+    const guestName = guestNameInput.value.trim().toLowerCase();
     console.log('Searching for guest:', guestName);
     
     // Clear previous messages
@@ -66,14 +89,3 @@ function selectGuest(guestKey) {
     sessionStorage.setItem('currentGuest', JSON.stringify(GUESTS_DATABASE[guestKey]));
     window.location.href = 'rsvp.html';
 }
-
-// Allow Enter key to trigger lookup
-document.getElementById('guestName')?.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        lookupGuest();
-    }
-});
-
-// Debug: Log when script loads
-console.log('lookup-script.js loaded');
-console.log('GUESTS_DATABASE available:', typeof GUESTS_DATABASE !== 'undefined');
