@@ -3,146 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP Form - Ankit & Aashna's Wedding</title>
+    <title>RSVP Form - Wedding</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="stars-decoration">
+        <span class="star star-1">✨</span>
+        <span class="star star-2">⭐</span>
+        <span class="star star-3">✨</span>
+        <span class="star star-4">⭐</span>
+    </div>
+    
     <div class="container">
-        <div class="rsvp-container">
-            <div class="rsvp-header">
-                <h1>Welcome, <span id="guestNameDisplay"></span>! 🎊</h1>
-                <p>Please confirm your attendance and provide your details below</p>
-            </div>
-
+        <div class="header">
+            <h1 id="guestGreeting" class="script-heading">Welcome!</h1>
+            <p class="subtitle">Please confirm your attendance</p>
+        </div>
+        
+        <div class="content">
             <form id="rsvpForm" class="rsvp-form">
-                <!-- Guest Name (Hidden, pre-filled) -->
-                <input type="hidden" id="guestName" name="guestName">
-
-                <!-- Events Section - Dynamically Generated -->
+                <!-- Events Section -->
                 <div class="form-section">
-                    <h2>Your Invited Events</h2>
-                    <div id="eventsSection"></div>
+                    <h2>Which events will you attend?</h2>
+                    <div id="eventsList" class="events-list"></div>
                 </div>
-
-                <!-- Personal Details Section -->
+                
+                <!-- Personal Details -->
                 <div class="form-section">
-                    <h2>Personal Information</h2>
-                    <p class="section-note">Required for hotel check-in and venue entry</p>
-
+                    <h2>Personal Details</h2>
+                    
                     <div class="form-group">
-                        <label for="legalName">Full Name (as per Government ID) *</label>
-                        <input 
-                            type="text" 
-                            id="legalName" 
-                            name="legalName" 
-                            required
-                            placeholder="Enter your full legal name"
-                        >
+                        <label for="fullName">Full Name (as on Government ID) *</label>
+                        <input type="text" id="fullName" required>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="aadhaarNumber">Aadhaar Card Number *</label>
-                            <input 
-                                type="text" 
-                                id="aadhaarNumber" 
-                                name="aadhaarNumber" 
-                                required
-                                pattern="[0-9]{12}"
-                                placeholder="12-digit number"
-                                maxlength="12"
-                            >
-                            <small>12 digits only</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="panNumber">PAN Card Number *</label>
-                            <input 
-                                type="text" 
-                                id="panNumber" 
-                                name="panNumber" 
-                                required
-                                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
-                                placeholder="ABCDE1234F"
-                                maxlength="10"
-                                style="text-transform: uppercase;"
-                            >
-                            <small>Format: ABCDE1234F</small>
-                        </div>
+                    
+                    <div class="form-group">
+                        <label for="govIdType">Government ID Type *</label>
+                        <select id="govIdType" required>
+                            <option value="">Select ID Type</option>
+                            <option value="aadhaar">Aadhaar Card</option>
+                            <option value="passport">Passport</option>
+                            <option value="driving">Driving License</option>
+                            <option value="voter">Voter ID</option>
+                            <option value="pan">PAN Card</option>
+                        </select>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="aadhaarUpload">Upload Aadhaar Card *</label>
-                            <input 
-                                type="file" 
-                                id="aadhaarUpload" 
-                                name="aadhaarUpload" 
-                                required
-                                accept="image/*,.pdf"
-                                class="file-input"
-                            >
-                            <small>Image or PDF, max 10MB</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="panUpload">Upload PAN Card *</label>
-                            <input 
-                                type="file" 
-                                id="panUpload" 
-                                name="panUpload" 
-                                required
-                                accept="image/*,.pdf"
-                                class="file-input"
-                            >
-                            <small>Image or PDF, max 10MB</small>
-                        </div>
+                    
+                    <div class="form-group">
+                        <label for="govIdNumber">Government ID Number *</label>
+                        <input type="text" id="govIdNumber" required>
+                        <p class="helper-text">Required for hotel check-in</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="idUpload">Upload ID Document (optional)</label>
+                        <input type="file" id="idUpload" accept=".pdf,.jpg,.jpeg,.png">
+                        <p class="helper-text">Accepted: PDF, JPG, PNG (max 5MB)</p>
                     </div>
                 </div>
-
-                <!-- Additional Information -->
+                
+                <!-- Contact Information -->
+                <div class="form-section">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="+91">
+                    </div>
+                </div>
+                
+                <!-- Additional Info -->
                 <div class="form-section">
                     <h2>Additional Information</h2>
-
+                    
                     <div class="form-group">
-                        <label for="dietary">Dietary Restrictions (Optional)</label>
-                        <textarea 
-                            id="dietary" 
-                            name="dietary" 
-                            rows="3"
-                            placeholder="Let us know about any dietary preferences or allergies"
-                        ></textarea>
+                        <label for="dietary">Dietary Restrictions (optional)</label>
+                        <input type="text" id="dietary" placeholder="e.g., Vegetarian, Vegan, Allergies">
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="phone">WhatsApp Contact Number *</label>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone" 
-                            required
-                            placeholder="+91 98765 43210"
-                        >
+                        <label for="plusOne">Bringing a Plus One?</label>
+                        <select id="plusOne">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div id="plusOneDetails" style="display: none;">
+                        <div class="form-group">
+                            <label for="plusOneName">Plus One Name</label>
+                            <input type="text" id="plusOneName">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests or Messages</label>
+                        <textarea id="specialRequests" rows="3" placeholder="Any special requirements or messages for the couple..."></textarea>
                     </div>
                 </div>
-
-                <!-- Submit Button -->
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary btn-large">
-                        Submit RSVP
-                    </button>
-                </div>
-
-                <div id="formError" class="error-message" style="display: none;"></div>
-                <div id="formLoading" class="loading-message" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Submitting your RSVP...</p>
-                </div>
+                
+                <button type="submit" class="btn-primary">Submit RSVP</button>
             </form>
         </div>
     </div>
-
+    
     <script src="config.js"></script>
     <script src="rsvp-script.js"></script>
 </body>
