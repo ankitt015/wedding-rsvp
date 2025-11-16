@@ -3,56 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Invitation - RSVP</title>
+    <title>Find Your Invitation - Wedding RSVP</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="stars-decoration">
+        <span class="star star-1">✨</span>
+        <span class="star star-2">⭐</span>
+        <span class="star star-3">✨</span>
+        <span class="star star-4">⭐</span>
+    </div>
+    
     <div class="container">
-        <div class="lookup-container">
-            <div class="back-link">
-                <a href="index.html">← Back to Home</a>
+        <div class="header">
+            <h1 class="script-heading">Find Your Invitation</h1>
+            <p class="subtitle">Enter your name to view your personalized RSVP</p>
+        </div>
+        
+        <div class="content">
+            <div class="lookup-card">
+                <div class="form-group">
+                    <label for="guestName">Your Full Name:</label>
+                    <input type="text" id="guestName" placeholder="e.g., Avisha Sharma" autocomplete="off">
+                    <p class="helper-text">Enter your name exactly as it appears on your invitation</p>
+                </div>
+                
+                <button onclick="lookupGuest()" class="btn-primary">Find My RSVP</button>
+                
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <div id="suggestions" class="suggestions" style="display: none;"></div>
             </div>
             
-            <div class="lookup-box">
-                <h1>Find Your Invitation</h1>
-                <p class="subtitle">Please enter your name as it appears on your invitation</p>
-                
-                <form id="lookupForm" class="lookup-form">
-                    <div class="form-group">
-                        <label for="guestName">Full Name</label>
-                        <input 
-                            type="text" 
-                            id="guestName" 
-                            name="guestName" 
-                            placeholder="Enter your name" 
-                            required
-                            autocomplete="off"
-                        >
-                        <small>Example: Avisha, Twankly, or Divya</small>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Find My Invitation</button>
-                </form>
-
-                <div id="errorMessage" class="error-message" style="display: none;">
-                    <p>⚠️ We couldn't find your name in our guest list.</p>
-                    <p>Please check the spelling or contact us for assistance.</p>
-                </div>
-
-                <div id="loadingMessage" class="loading-message" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Searching for your invitation...</p>
-                </div>
-            </div>
-
-            <div class="help-text">
-                <p>💡 <strong>Tip:</strong> Enter your name exactly as it appears on your invitation</p>
-                <p>Having trouble? WhatsApp us at [Your Number]</p>
-            </div>
+            <a href="index.html" class="back-link">← Back to Invitation</a>
         </div>
     </div>
-
+    
     <script src="config.js"></script>
     <script src="lookup-script.js"></script>
 </body>
